@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/views/login_screen.dart';
+import 'package:whisprr/views/register_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -116,7 +117,12 @@ class _LandingScreenState extends State<LandingScreen>
                           ),
                           side: BorderSide(color: Colors.black, width: 1),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Customnavigation.nextMaterialPage(
+                            context,
+                            RegisterScreen(),
+                          );
+                        },
                         child: Text(
                           'Register',
                           style: TextStyle(
