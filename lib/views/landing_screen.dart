@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:whisprr/utils/navigation/custom_navigation.dart';
+import 'package:whisprr/views/login_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -86,7 +88,12 @@ class _LandingScreenState extends State<LandingScreen>
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Customnavigation.nextMaterialPage(
+                            context,
+                            LoginScreen(),
+                          );
+                        },
                         child: Text(
                           'Sign In',
                           style: TextStyle(
