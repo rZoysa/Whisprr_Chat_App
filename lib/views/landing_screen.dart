@@ -48,7 +48,7 @@ class _LandingScreenState extends State<LandingScreen>
         children: [
           Expanded(
             child: Image.asset(
-              'assets/images/Logo_2.png',
+              'assets/images/brand_logo.png',
               width: deviceWidth * 0.8,
             ),
           ),
