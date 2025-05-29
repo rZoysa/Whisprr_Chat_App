@@ -69,14 +69,14 @@ class _LandingScreenState extends State<LandingScreen>
                     Text(
                       'Welcome to Whisprr 👋',
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       'Start conversations that matter.\nLog in or sign up to begin connecting.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(height: 20),
                     SizedBox(
@@ -98,7 +98,7 @@ class _LandingScreenState extends State<LandingScreen>
                         child: Text(
                           'Sign In',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 30,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -126,7 +126,7 @@ class _LandingScreenState extends State<LandingScreen>
                         child: Text(
                           'Register',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 30,
                             color: const Color(0xff0070FC),
                             fontWeight: FontWeight.bold,
                           ),
