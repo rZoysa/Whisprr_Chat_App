@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Whisprr',
       theme: ThemeData(
         fontFamily: 'PlusJakartaSans',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff0070FC)),
       ),
       home: const LandingScreen(),
     );
