@@ -19,7 +19,7 @@ class AuthViewmodel extends ChangeNotifier {
       notifyListeners();
 
       _logger.f("User logged in: $email");
-      //navigation logic
+      //navigation logic needed here
     });
   }
 }
