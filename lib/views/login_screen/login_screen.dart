@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
-import 'package:whisprr/views/login_screen/widget/custom_text_field.dart';
+import 'package:whisprr/view_models/login_view_model.dart';
+import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/views/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,8 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return GestureDetector(
       onTap: () {
-          FocusScope.of(context).unfocus(); // Dismiss keyboard on tap
-        },
+        FocusScope.of(context).unfocus(); // Dismiss keyboard on tap
+      },
       child: Scaffold(
         backgroundColor: Color(0xff0070FC),
         appBar: AppBar(
@@ -141,11 +143,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {},
                               child: Text(
                                 'Forgot Password?',
-                                style: TextStyle(color: Colors.black54, fontSize: 16),
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
-                          
+
                           SizedBox(height: 16),
                           SizedBox(
                             width: deviceWidth * 0.85,
@@ -153,14 +158,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               //Sign In button
                               style: TextButton.styleFrom(
                                 backgroundColor: const Color(0xff0070FC),
-                                padding: const EdgeInsets.symmetric(vertical: 7),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 7,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  Logger().i('Login');
+                                  final loginViewModel =
+                                      Provider.of<LoginViewModel>(
+                                        context,
+                                        listen: false,
+                                      );
+                                      // loginViewModel.login(email, password)
                                 }
                               },
                               child: Text(
@@ -173,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          
+
                           SizedBox(height: 16),
                           SizedBox(
                             width: deviceWidth * 0.85,
@@ -191,7 +203,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Image.asset(
                                     'assets/images/google_logo.png',
