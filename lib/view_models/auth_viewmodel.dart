@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-class LoginViewModel extends ChangeNotifier {
+class AuthViewmodel extends ChangeNotifier {
   final Logger _logger = Logger();
 
   bool _isLoading = false;
@@ -18,7 +18,7 @@ class LoginViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
 
-      _logger.i("User logged in: $email");
+      _logger.f("User logged in: $email");
       //navigation logic
     });
   }

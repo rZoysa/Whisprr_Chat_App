@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whisprr/view_models/login_view_model.dart';
+import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/views/landing_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => LoginViewModel())],
+      providers: [ChangeNotifierProvider(create: (_) => AuthViewmodel())],
       child: const MyApp(),
     ),
   );

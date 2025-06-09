@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:whisprr/components/custom_password_field.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
-import 'package:whisprr/view_models/login_view_model.dart';
+import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/views/register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  bool _obscurePassword = true;
+
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+    final authViewmodel = Provider.of<AuthViewmodel>(context);
 
     return GestureDetector(
       onTap: () {
@@ -96,7 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: CustomTextField(
+                              //Email field
                               label: 'Email',
+                              controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null ||
@@ -111,23 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(height: 16),
                           SizedBox(
                             width: deviceWidth * 0.85,
-                            child: CustomTextField(
+                            child: CustomPasswordField(
+                              //Password field
                               label: 'Password',
-                              keyboardType: TextInputType.visiblePassword,
-                              obscureText: _obscurePassword,
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _obscurePassword = !_obscurePassword;
-                                  });
-                                },
-                                icon: Icon(
-                                  color: Colors.black54,
-                                  _obscurePassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                ),
-                              ),
+                              controller: passwordController,
                               validator: (value) {
                                 if (value == null || value.length < 6) {
                                   return 'Password must be at least 6 characters';
@@ -165,24 +154,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  final loginViewModel =
-                                      Provider.of<LoginViewModel>(
-                                        context,
-                                        listen: false,
-                                      );
-                                      // loginViewModel.login(email, password)
-                                }
-                              },
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              onPressed: authViewmodel.isLoading
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        authViewmodel.login(
+                                          emailController.text,
+                                          passwordController.text,
+                                        );
+                                      }
+                                    },
+
+                              child: authViewmodel.isLoading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : Text(
+                                      'Sign In',
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ),
                           ),
 
