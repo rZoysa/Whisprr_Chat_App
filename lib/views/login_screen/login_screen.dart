@@ -7,13 +7,25 @@ import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/views/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +122,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 16),
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: CustomPasswordField(
@@ -140,6 +153,7 @@ class LoginScreen extends StatelessWidget {
                           ),
 
                           SizedBox(height: 16),
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: TextButton(
@@ -158,6 +172,7 @@ class LoginScreen extends StatelessWidget {
                                   : () {
                                       if (_formKey.currentState!.validate()) {
                                         authViewmodel.login(
+                                          context,
                                           emailController.text.trim(),
                                           passwordController.text,
                                         );
@@ -178,15 +193,9 @@ class LoginScreen extends StatelessWidget {
                                     ),
                             ),
                           ),
-                          // if (authViewmodel.errorMessage != null)
-                          //   Padding(
-                          //     padding: EdgeInsets.all(8),
-                          //     child: Text(
-                          //       authViewmodel.errorMessage!,
-                          //       style: TextStyle(color: Colors.red),
-                          //     ),
-                          //   ),
+
                           SizedBox(height: 16),
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: ElevatedButton(
