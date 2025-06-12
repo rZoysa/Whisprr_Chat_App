@@ -202,6 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               //Google Sign In button
                               onPressed: () {
                                 Logger().d('Google Sign In');
+                                authViewmodel.logout(context);
                               },
                               style: ElevatedButton.styleFrom(
                                 elevation: 2,
