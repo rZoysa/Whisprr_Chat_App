@@ -13,7 +13,6 @@ class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -179,7 +178,14 @@ class LoginScreen extends StatelessWidget {
                                     ),
                             ),
                           ),
-
+                          // if (authViewmodel.errorMessage != null)
+                          //   Padding(
+                          //     padding: EdgeInsets.all(8),
+                          //     child: Text(
+                          //       authViewmodel.errorMessage!,
+                          //       style: TextStyle(color: Colors.red),
+                          //     ),
+                          //   ),
                           SizedBox(height: 16),
                           SizedBox(
                             width: deviceWidth * 0.85,
@@ -190,7 +196,12 @@ class LoginScreen extends StatelessWidget {
                               },
                               style: ElevatedButton.styleFrom(
                                 elevation: 2,
-                                backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  245,
+                                  245,
+                                  245,
+                                ),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 10,
                                   horizontal: 16,
