@@ -13,6 +13,14 @@ class Customnavigation {
     );
   }
 
+  static void nextMaterialPageReplaceAll(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => widget),
+      (Route<dynamic> route) => false,
+    );
+  }
+
   static void nextCupertinoPage(BuildContext context, Widget widget) {
     Navigator.push(context, CupertinoPageRoute(builder: (context) => widget));
   }
@@ -21,6 +29,14 @@ class Customnavigation {
     Navigator.pushReplacement(
       context,
       CupertinoPageRoute(builder: (context) => widget),
+    );
+  }
+
+  static void nextCupertinoPageReplaceAll(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      CupertinoPageRoute(builder: (context) => widget),
+      (Route<dynamic> route) => false,
     );
   }
 }

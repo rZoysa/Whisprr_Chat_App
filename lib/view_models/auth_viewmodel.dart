@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whisprr/Services/auth_service.dart';
+import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/utils/snackbar_util.dart';
+import 'package:whisprr/views/home_screen/home_screen.dart';
 
 class AuthViewmodel extends ChangeNotifier {
   final AuthService _authService = AuthService();
@@ -25,10 +27,11 @@ class AuthViewmodel extends ChangeNotifier {
 
       if (!context.mounted) return;
 
-      SnackbarUtil.showSuccess(
-        context,
-        'Successfully Registered!',
-      ); //Show success message
+      //Show success message
+      SnackbarUtil.showSuccess(context, 'Successfully Registered!');
+
+      // Navigate to Home Screen on successful Sign Up
+      Customnavigation.nextMaterialPageReplaceAll(context, HomeScreen());
     } on FirebaseAuthException catch (e) {
       // Logger().e("Sign Up Error: $e");
 
@@ -54,6 +57,9 @@ class AuthViewmodel extends ChangeNotifier {
 
       //Show success message
       SnackbarUtil.showSuccess(context, 'Login successful!');
+
+      // Navigate to Home Screen on successful login
+      Customnavigation.nextMaterialPageReplaceAll(context, HomeScreen());
     } on FirebaseAuthException catch (e) {
       // Logger().e(getErrorMessage(e.code));
 
