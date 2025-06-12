@@ -26,7 +26,31 @@ class _SettingScreenState extends State<SettingScreen> {
         children: [
           TextButton(
             onPressed: () {
-              authViewmodel.logout(context);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Log out of your account?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          authViewmodel.logout(context); // Logout the user
+                        },
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(
