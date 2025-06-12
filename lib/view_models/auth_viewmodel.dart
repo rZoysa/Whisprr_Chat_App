@@ -64,6 +64,24 @@ class AuthViewmodel extends ChangeNotifier {
     }
   }
 
+  Future<void> logout(BuildContext context) async {
+    _setLoading(true);
+    try {
+      await _authService.logout();
+      // Logger().f("User logged out successfully");
+
+      if (!context.mounted) return;
+
+      //Show success message
+      SnackbarUtil.showSuccess(context, 'Logged out successfully!');
+    } catch (e) {
+      // Logger().e("Logout Error: $e");
+      SnackbarUtil.showError(context, 'An error occurred while logging out.');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
