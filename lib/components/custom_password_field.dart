@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomPasswordField extends StatefulWidget {
   final String label;
+  final TextInputAction textInputAction;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final TextEditingController? controller;
@@ -9,6 +10,7 @@ class CustomPasswordField extends StatefulWidget {
   const CustomPasswordField({
     super.key,
     required this.label,
+    this.textInputAction = TextInputAction.done,
     this.validator,
     this.suffixIcon,
     this.controller,
@@ -25,6 +27,10 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
     return TextFormField(
       controller: widget.controller,
       obscureText: _obscurePassword,
+      textInputAction: widget.textInputAction,
+      onFieldSubmitted: (value) {
+        FocusScope.of(context).nextFocus();
+      },
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
         labelText: widget.label,

@@ -117,8 +117,8 @@ class LoginScreen extends StatelessWidget {
                               label: 'Password',
                               controller: passwordController,
                               validator: (value) {
-                                if (value == null || value.length < 6) {
-                                  return 'Password must be at least 6 characters';
+                                if (value == null || value.isEmpty) {
+                                  return 'Password cannot be empty';
                                 }
                                 return null;
                               },
@@ -158,7 +158,7 @@ class LoginScreen extends StatelessWidget {
                                   : () {
                                       if (_formKey.currentState!.validate()) {
                                         authViewmodel.login(
-                                          emailController.text,
+                                          emailController.text.trim(),
                                           passwordController.text,
                                         );
                                       }
