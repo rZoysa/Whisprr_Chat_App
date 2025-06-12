@@ -15,7 +15,7 @@ class AuthService {
     final uid = result.user!.uid;
 
     AppUser user = AppUser(uid: uid, email: email, username: username);
-    await _firestore.collection('users').doc(uid).set(user.toMap());
+    await _firestore.collection('users').doc(uid).set(user.toMap()); //Save user data to Firestore
   }
 
   Future<void> login(String email, String password) async {
