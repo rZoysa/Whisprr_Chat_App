@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:whisprr/components/custom_password_field.dart';
-import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
-import 'package:whisprr/views/login_screen/login_screen.dart';
+import 'package:whisprr/components/custom_text_field.dart';
+import 'package:whisprr/views/auth_screens/register_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
-  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
-    usernameController.dispose();
     passwordController.dispose();
-    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -51,11 +48,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () {
                   Customnavigation.nextMaterialPageReplace(
                     context,
-                    LoginScreen(),
+                    RegisterScreen(),
                   );
                 },
                 child: Text(
-                  'Sign In',
+                  'Register',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -76,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Register',
+                    'Sign In',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 32,
@@ -84,7 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   Text(
-                    'Create your account and start chatting.',
+                    'Sign in to continue the conversation.',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
@@ -104,7 +101,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: SafeArea(
                     child: Form(
                       key: _formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         children: [
                           SizedBox(height: 32),
@@ -126,91 +122,124 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           SizedBox(height: 16),
-                          SizedBox(
-                            width: deviceWidth * 0.85,
-                            child: CustomTextField(
-                              //Email field
-                              label: 'Username',
-                              controller: usernameController,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Username cannot be empty';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 16),
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: CustomPasswordField(
                               //Password field
                               label: 'Password',
-                              textInputAction: TextInputAction.next,
                               controller: passwordController,
                               validator: (value) {
-                                if (value == null || value.length < 6) {
-                                  return 'Password must be at least 6 characters';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-      
-                          SizedBox(height: 16),
-      
-                          SizedBox(
-                            width: deviceWidth * 0.85,
-                            child: CustomPasswordField(
-                              //Password field
-                              label: 'Confirm Password',
-                              controller: confirmPasswordController,
-                              validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Confirm Password cannot be empty';
-                                }
-                                if (value != passwordController.text) {
-                                  return 'Passwords do not match';
+                                  return 'Password cannot be empty';
                                 }
                                 return null;
                               },
                             ),
                           ),
-      
-                          SizedBox(height: 30),
-      
+                          Container(
+                            width: deviceWidth * 0.85,
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 16),
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: TextButton(
                               //Sign In button
                               style: TextButton.styleFrom(
                                 backgroundColor: const Color(0xff0070FC),
-                                padding: const EdgeInsets.symmetric(vertical: 7),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 7,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  authViewmodel.signUp(
-                                    context,
-                                    emailController.text.trim(),
-                                    passwordController.text,
-                                    usernameController.text,
-                                  );
-                                }
-                              },
+                              onPressed: authViewmodel.isLoading
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        authViewmodel.login(
+                                          context,
+                                          emailController.text.trim(),
+                                          passwordController.text,
+                                        );
+                                      }
+                                    },
+
                               child: authViewmodel.isLoading
-                                  ? CircularProgressIndicator(color: Colors.white)
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
                                   : Text(
-                                      'Register',
+                                      'Sign In',
                                       style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                            ),
+                          ),
+
+                          SizedBox(height: 16),
+
+                          SizedBox(
+                            width: deviceWidth * 0.85,
+                            child: ElevatedButton(
+                              //Google Sign In button
+                              onPressed: () {
+                                Logger().d('Google Sign In');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                elevation: 2,
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  245,
+                                  245,
+                                  245,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 16,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/google_logo.png',
+                                    width: 24,
+                                    height: 24,
+                                  ),
+                                  Text(
+                                    'Continue with Google',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    size: 24,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(height: 24),

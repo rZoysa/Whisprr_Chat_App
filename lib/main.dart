@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:whisprr/firebase_options.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/views/landing_screen.dart';
-import 'package:whisprr/views/login_screen/login_screen.dart';
+import 'package:whisprr/views/auth_screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

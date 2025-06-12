@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
-import 'package:whisprr/views/login_screen/login_screen.dart';
-import 'package:whisprr/views/register_screen.dart';
+import 'package:whisprr/views/auth_screens/login_screen.dart';
+import 'package:whisprr/views/auth_screens/register_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
