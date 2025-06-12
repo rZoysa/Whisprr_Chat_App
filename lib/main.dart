@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whisprr/firebase_options.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
+import 'package:whisprr/views/home_screen/home_screen.dart';
 import 'package:whisprr/views/landing_screen.dart';
-import 'package:whisprr/views/auth_screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.hasData) {
             // User is signed in, navigate to the Home screen
-            return const LoginScreen();
+            return const HomeScreen();
           }
           return const LandingScreen();
         },
