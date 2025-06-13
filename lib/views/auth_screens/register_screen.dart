@@ -118,10 +118,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !value.contains('@')) {
-                                  return 'Enter a valid email';
+                                if (value == null || value.isEmpty) {
+                                  return 'Email cannot be empty';
+                                }
+
+                                // Email validation
+                                final emailRegex = RegExp(
+                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                );
+
+                                if (!emailRegex.hasMatch(value)) {
+                                  return 'Enter a valid email address';
                                 }
                                 return null;
                               },
