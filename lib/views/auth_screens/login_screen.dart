@@ -114,10 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !value.contains('@')) {
-                                  return 'Enter a valid email';
+                                if (value == null || value.isEmpty) {
+                                  return 'Email cannot be empty';
                                 }
                                 return null;
                               },
