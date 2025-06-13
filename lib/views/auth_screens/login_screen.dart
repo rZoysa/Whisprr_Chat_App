@@ -3,9 +3,11 @@ import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:whisprr/components/custom_password_field.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
+import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/views/auth_screens/register_screen.dart';
+import 'package:whisprr/views/home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -169,13 +171,35 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: authViewmodel.isLoading
                                   ? null
-                                  : () {
+                                  : () async {
                                       if (_formKey.currentState!.validate()) {
-                                        authViewmodel.login(
-                                          context,
-                                          emailController.text.trim(),
-                                          passwordController.text,
-                                        );
+                                        AuthResult result = await authViewmodel
+                                            .login(
+                                              emailController.text.trim(),
+                                              passwordController.text,
+                                            );
+
+                                        if (!context.mounted) return;
+
+                                        if (result.success) {
+                                          //Show success message
+                                          SnackbarUtil.showSuccess(
+                                            context,
+                                            result.message,
+                                          );
+
+                                          // Navigate to Home Screen on successful login
+                                          Customnavigation.nextMaterialPageReplaceAll(
+                                            context,
+                                            HomeScreen(),
+                                          );
+                                        } else {
+                                          // Show error message
+                                          SnackbarUtil.showError(
+                                            context,
+                                            result.message,
+                                          );
+                                        }
                                       }
                                     },
 
@@ -202,7 +226,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               //Google Sign In button
                               onPressed: () {
                                 Logger().d('Google Sign In');
-                                authViewmodel.logout(context);
                               },
                               style: ElevatedButton.styleFrom(
                                 elevation: 2,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -39,8 +40,19 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: const Text('Cancel'),
                       ),
                       TextButton(
-                        onPressed: () {
-                          authViewmodel.logout(context); // Logout the user
+                        onPressed: () async {
+                          AuthResult result = await authViewmodel
+                              .logout(); // Logout the user
+
+                          if (!context.mounted) return;
+
+                          if (result.success) {
+                            //Show success message
+                            SnackbarUtil.showSuccess(context, result.message);
+                          } else {
+                            //Show error message
+                            SnackbarUtil.showError(context, result.message);
+                          }
                         },
                         child: const Text(
                           'Logout',

@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:whisprr/components/custom_password_field.dart';
 import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
+import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/views/auth_screens/login_screen.dart';
+import 'package:whisprr/views/home_screen/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -157,9 +159,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                             ),
                           ),
-      
+
                           SizedBox(height: 16),
-      
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: CustomPasswordField(
@@ -177,32 +179,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                             ),
                           ),
-      
+
                           SizedBox(height: 30),
-      
+
                           SizedBox(
                             width: deviceWidth * 0.85,
                             child: TextButton(
                               //Sign In button
                               style: TextButton.styleFrom(
                                 backgroundColor: const Color(0xff0070FC),
-                                padding: const EdgeInsets.symmetric(vertical: 7),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 7,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  authViewmodel.signUp(
-                                    context,
-                                    emailController.text.trim(),
-                                    passwordController.text,
-                                    usernameController.text,
-                                  );
+                                  AuthResult result = await authViewmodel
+                                      .signUp(
+                                        emailController.text.trim(),
+                                        passwordController.text,
+                                        usernameController.text,
+                                      );
+
+                                  if (!context.mounted) return;
+
+                                  if (result.success) {
+                                    //Show success message
+                                    SnackbarUtil.showSuccess(
+                                      context,
+                                      result.message,
+                                    );
+
+                                    // Navigate to Home Screen on successful Sign Up
+                                    Customnavigation.nextMaterialPageReplaceAll(
+                                      context,
+                                      HomeScreen(),
+                                    );
+                                  } else {
+                                    // Show error message
+                                    SnackbarUtil.showError(
+                                      context,
+                                      result.message,
+                                    );
+                                  }
                                 }
                               },
                               child: authViewmodel.isLoading
-                                  ? CircularProgressIndicator(color: Colors.white)
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
                                   : Text(
                                       'Register',
                                       style: TextStyle(
