@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
+import 'package:whisprr/views/landing_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -41,14 +43,26 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          AuthResult result = await authViewmodel
-                              .logout(); // Logout the user
+                          Navigator.of(context).pop(); // Close the dialog
+
+                          // Logout the user
+                          AuthResult result = await authViewmodel.logout();
 
                           if (!context.mounted) return;
 
                           if (result.success) {
                             //Show success message
-                            SnackbarUtil.showSuccess(context, result.message);
+                            SnackbarUtil.showSuccess(
+                              context,
+                              result.message,
+                              duration: Duration(milliseconds: 1200),
+                            );
+
+                            // Navigate to the landing screen
+                            Customnavigation.nextMaterialPageReplaceAll(
+                              context,
+                              LandingScreen(),
+                            );
                           } else {
                             //Show error message
                             SnackbarUtil.showError(context, result.message);
