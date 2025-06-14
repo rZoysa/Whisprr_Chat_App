@@ -68,6 +68,7 @@ class AuthViewmodel extends ChangeNotifier {
     }
   }
 
+  //Set loading state
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
