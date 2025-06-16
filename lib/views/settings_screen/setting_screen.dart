@@ -29,7 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
         children: [
           SizedBox(
             width: double.infinity,
-            child: TextButton(
+            child: TextButton( //Logout button
               onPressed: () {
                 showDialog(
                   context: context,
