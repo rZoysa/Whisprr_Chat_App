@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 import 'package:whisprr/components/custom_password_field.dart';
-import 'package:whisprr/utils/navigation/custom_navigation.dart';
-import 'package:whisprr/utils/snackbar_util.dart';
-import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/components/custom_text_field.dart';
+import 'package:whisprr/utils/navigation/custom_navigation.dart';
+import 'package:whisprr/views/auth_screens/login_screen/widgets/sign_in_button.dart';
 import 'package:whisprr/views/auth_screens/register_screen.dart';
-import 'package:whisprr/views/home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
-    final authViewmodel = Provider.of<AuthViewmodel>(context);
 
     return GestureDetector(
       onTap: () {
@@ -156,63 +152,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           SizedBox(
                             width: deviceWidth * 0.85,
-                            child: TextButton(
-                              //Sign In button
-                              style: TextButton.styleFrom(
-                                backgroundColor: const Color(0xff0070FC),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 7,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              onPressed: authViewmodel.isLoading
-                                  ? null
-                                  : () async {
-                                      if (_formKey.currentState!.validate()) {
-                                        AuthResult result = await authViewmodel
-                                            .login(
-                                              emailController.text.trim(),
-                                              passwordController.text,
-                                            );
-
-                                        if (!context.mounted) return;
-
-                                        if (result.success) {
-                                          //Show success message
-                                          SnackbarUtil.showSuccess(
-                                            context,
-                                            result.message,
-                                          );
-
-                                          // Navigate to Home Screen on successful login
-                                          Customnavigation.nextMaterialPageReplaceAll(
-                                            context,
-                                            HomeScreen(),
-                                          );
-                                        } else {
-                                          // Show error message
-                                          SnackbarUtil.showError(
-                                            context,
-                                            result.message,
-                                          );
-                                        }
-                                      }
-                                    },
-
-                              child: authViewmodel.isLoading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : Text(
-                                      'Sign In',
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                            child: SignInButton(
+                              formKey: _formKey,
+                              emailController: emailController,
+                              passwordController: passwordController,
                             ),
                           ),
 

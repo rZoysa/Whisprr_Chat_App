@@ -14,16 +14,30 @@ class AuthService {
     );
     final uid = result.user!.uid;
 
+    //Save user data to Firestore
     AppUser user = AppUser(uid: uid, email: email, username: username);
-    await _firestore
-        .collection('users')
-        .doc(uid)
-        .set(user.toMap()); //Save user data to Firestore
+    await _firestore.collection('users').doc(uid).set(user.toMap());
+
+    //Send email verification
+    await result.user!.sendEmailVerification();
   }
 
   //Login Method
   Future<void> login(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
+  }
+
+  //Method to check if user email is verified
+  Future<bool> checkIsUserEmailVerified() async {
+    // Reload user to ensure the latest data is fetched
+    await currentUser?.reload();
+
+    return currentUser!.emailVerified;
+  }
+
+  //Method to send email verification
+  Future<void> sendVerifyEmail() async {
+    await currentUser?.sendEmailVerification();
   }
 
   //Logout Method

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:whisprr/Services/auth_service.dart';
 
 class AuthViewmodel extends ChangeNotifier {
@@ -21,7 +22,7 @@ class AuthViewmodel extends ChangeNotifier {
     try {
       await _authService.signUp(email, password, username); //
 
-      return AuthResult(success: true, message: 'Successfully Registered!');
+      return AuthResult(success: true, message: 'Successfully Registered and verification email sent!');
     } on FirebaseAuthException catch (e) {
       // Logger().e("Sign Up Error: $e");
 
@@ -36,7 +37,16 @@ class AuthViewmodel extends ChangeNotifier {
     _setLoading(true);
     try {
       await _authService.login(email, password);
-      // Logger().f("Login successful for user: ${_authService.currentUser?.email}");
+
+      //Chek if the user email is verified
+      bool isEmailVerified = await _authService.checkIsUserEmailVerified();
+      if (_authService.currentUser != null && !isEmailVerified) {
+        return AuthResult(
+          success: false,
+          errorCode: 'email-not-verified',
+          message: 'Please verify your email before logging in.',
+        );
+      }
 
       return AuthResult(success: true, message: 'Login successful!');
     } on FirebaseAuthException catch (e) {
@@ -45,6 +55,15 @@ class AuthViewmodel extends ChangeNotifier {
       return AuthResult(success: false, message: getErrorMessage(e.code));
     } finally {
       _setLoading(false);
+    }
+  }
+
+  // Method to send the email verification
+  Future<void> sendEmailVerification() async {
+    try {
+      _authService.sendVerifyEmail();
+    } catch (e) {
+      Logger().e("Email Verification Error: $e");
     }
   }
 
@@ -104,7 +123,8 @@ class AuthViewmodel extends ChangeNotifier {
 // This class represents the result of an authentication operation
 class AuthResult {
   final bool success;
+  final String? errorCode;
   final String message;
 
-  AuthResult({required this.success, required this.message});
+  AuthResult({required this.success, this.errorCode, required this.message});
 }

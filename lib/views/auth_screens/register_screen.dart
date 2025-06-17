@@ -5,8 +5,7 @@ import 'package:whisprr/components/custom_text_field.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
-import 'package:whisprr/views/auth_screens/login_screen.dart';
-import 'package:whisprr/views/home_screen/home_screen.dart';
+import 'package:whisprr/views/auth_screens/login_screen/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -221,9 +220,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     );
 
                                     // Navigate to Home Screen on successful Sign Up
-                                    Customnavigation.nextMaterialPageReplaceAll(
+                                    Customnavigation.nextMaterialPageReplace(
                                       context,
-                                      HomeScreen(),
+                                      LoginScreen(),
                                     );
                                   } else {
                                     // Show error message
