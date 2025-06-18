@@ -85,7 +85,7 @@ class _LandingScreenState extends State<LandingScreen>
                       width: deviceWidth * 0.85,
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          // backgroundColor: const Color(0xff0070FC),
+                          backgroundColor: const Color(0xff0070FC),
                           padding: const EdgeInsets.symmetric(vertical: 7),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
