@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whisprr/firebase_options.dart';
+import 'package:whisprr/utils/Themes/themes.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
 import 'package:whisprr/views/home_screen/home_screen.dart';
 import 'package:whisprr/views/landing_screen.dart';
@@ -27,10 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Whisprr',
-      theme: ThemeData(
-        fontFamily: 'PlusJakartaSans',
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff0070FC)),
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {

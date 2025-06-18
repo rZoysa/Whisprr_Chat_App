@@ -29,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return GestureDetector(
       onTap: () {
@@ -89,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 width: deviceWidth,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -138,10 +140,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                               onPressed: () {},
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.transparent
+                              ),
                               child: Text(
                                 'Forgot Password?',
                                 style: TextStyle(
-                                  color: Colors.black54,
+                                  color: colorScheme.secondary,
                                   fontSize: 16,
                                 ),
                               ),

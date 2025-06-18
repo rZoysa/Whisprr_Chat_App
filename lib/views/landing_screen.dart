@@ -40,6 +40,8 @@ class _LandingScreenState extends State<LandingScreen>
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       backgroundColor: const Color(0xff0070FC),
@@ -57,7 +59,7 @@ class _LandingScreenState extends State<LandingScreen>
             child: Container(
               width: deviceWidth,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surface,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -83,7 +85,7 @@ class _LandingScreenState extends State<LandingScreen>
                       width: deviceWidth * 0.85,
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          backgroundColor: const Color(0xff0070FC),
+                          // backgroundColor: const Color(0xff0070FC),
                           padding: const EdgeInsets.symmetric(vertical: 7),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -110,12 +112,20 @@ class _LandingScreenState extends State<LandingScreen>
                       width: deviceWidth * 0.85,
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: const Color.fromARGB(
+                            25,
+                            255,
+                            255,
+                            255,
+                          ),
                           padding: const EdgeInsets.symmetric(vertical: 7),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          side: BorderSide(color: Colors.black, width: 1),
+                          side: BorderSide(
+                            color: colorScheme.onSurfaceVariant,
+                            width: 1,
+                          ),
                         ),
                         onPressed: () {
                           Customnavigation.nextMaterialPage(
@@ -127,7 +137,7 @@ class _LandingScreenState extends State<LandingScreen>
                           'Register',
                           style: TextStyle(
                             fontSize: 30,
-                            color: const Color(0xff0070FC),
+                            color: colorScheme.onSecondary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

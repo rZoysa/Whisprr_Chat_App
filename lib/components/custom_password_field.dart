@@ -24,6 +24,9 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
   bool _obscurePassword = true;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return TextFormField(
       controller: widget.controller,
       obscureText: _obscurePassword,
@@ -34,9 +37,9 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           fontSize: 20,
-          color: Colors.black54,
+          color: colorScheme.secondary,
           fontWeight: FontWeight.bold,
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
@@ -51,7 +54,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             });
           },
           icon: Icon(
-            color: Colors.black54,
+            color: colorScheme.secondary,
             _obscurePassword ? Icons.visibility : Icons.visibility_off,
           ),
         ),
