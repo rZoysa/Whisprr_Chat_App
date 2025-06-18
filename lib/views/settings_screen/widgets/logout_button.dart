@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whisprr/utils/navigation/custom_navigation.dart';
 import 'package:whisprr/utils/snackbar_util.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
-import 'package:whisprr/views/landing_screen.dart';
+import 'package:whisprr/views/landing_screen/landing_screen.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key, required this.authViewmodel});
