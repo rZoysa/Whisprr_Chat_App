@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:whisprr/firebase_options.dart';
 import 'package:whisprr/utils/Themes/themes.dart';
 import 'package:whisprr/view_models/auth_viewmodel.dart';
+import 'package:whisprr/view_models/chat_viewmodel.dart';
 import 'package:whisprr/views/home_screen/home_screen.dart';
 import 'package:whisprr/views/landing_screen/landing_screen.dart';
 
@@ -13,7 +14,10 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthViewmodel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewmodel()),
+        ChangeNotifierProvider(create: (_) => ChatViewModel()),
+      ],
       child: const MyApp(),
     ),
   );

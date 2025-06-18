@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 import 'package:whisprr/components/glass_app_bar.dart';
+import 'package:whisprr/views/chats_screen.dart/widgets/user_search_bottom_sheet.dart';
 
 class ChatsListScreen extends StatefulWidget {
   const ChatsListScreen({super.key});
@@ -25,7 +26,27 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                // backgroundColor: Theme.of(context).colorScheme.surfaceBright,
+                backgroundColor: Colors.transparent,
+                builder: (context) => Builder(
+                  builder: (context) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceBright,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      child: UserSearchBottomSheet(),
+                    );
+                  },
+                ),
+              );
+            },
             icon: Icon(
               Icons.add_circle_outline,
               color: Theme.of(context).colorScheme.primary,
