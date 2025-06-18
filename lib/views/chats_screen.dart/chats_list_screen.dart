@@ -57,10 +57,10 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
                 return Column(
                   children: [
                     ListTile(
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         radius: 25,
                         backgroundImage: NetworkImage(
-                          'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg', // Replace with actual image URL
+                          'https://cdn-icons-png.flaticon.com/512/219/219970.png'
                         ),
                       ),
                       title: Text('John Doe'),
@@ -68,10 +68,11 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
                       trailing: Text('10:30 AM'),
                     ),
                     Divider(
-                      height: 1,
-                      color: Colors.grey[300],
-                      indent: 25,
-                      endIndent: 24,
+                      height: 0,
+                      thickness: 0.5,
+                      color: theme.dividerColor,
+                      indent: 20,
+                      // endIndent: 20,
                     ),
                   ],
                 );
