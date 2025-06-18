@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisprr/views/chats_screen.dart/chats_list_screen.dart';
+import 'package:whisprr/views/home_screen/widgets/glass_bottom_navbar.dart';
 import 'package:whisprr/views/settings_screen/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,22 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _onItemTapped,
+      bottomNavigationBar: GlassBottomNavigationBar(
         currentIndex: _selectedIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            activeIcon: Icon(Icons.chat_bubble),
-            label: 'Chats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            activeIcon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+        onTap: _onItemTapped,
       ),
     );
   }
