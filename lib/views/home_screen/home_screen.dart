@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisprr/views/chats_screen.dart/chats_screen.dart';
+import 'package:whisprr/views/chats_screen.dart/chats_list_screen.dart';
 import 'package:whisprr/views/settings_screen/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [const ChatsScreen(), const SettingScreen()];
+  final List<Widget> _pages = [const ChatsListScreen(), const SettingScreen()];
 
   void _onItemTapped(int index) {
     setState(() {
