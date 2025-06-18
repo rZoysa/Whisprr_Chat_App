@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
+import 'package:whisprr/components/glass_app_bar.dart';
 
 class ChatsListScreen extends StatefulWidget {
   const ChatsListScreen({super.key});
@@ -14,42 +13,25 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-            child: AppBar(
-              backgroundColor: colorScheme.surface.withAlpha(
-                153,
-              ), // semi-transparent
-              elevation: 0,
-              title: const Text(
-                'Chats',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-              leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit_outlined),
-                iconSize: 30,
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.add_circle_outline,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ],
+      appBar: GlassAppBar(
+        title: 'Chats',
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.edit_outlined),
+          iconSize: 30,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.add_circle_outline,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-        ),
+        ],
       ),
       body: Column(
         children: [
