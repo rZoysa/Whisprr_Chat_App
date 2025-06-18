@@ -21,9 +21,6 @@ ThemeData lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
   ),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
-  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: kPrimaryColor,
@@ -50,9 +47,6 @@ ThemeData darkTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-  ),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
