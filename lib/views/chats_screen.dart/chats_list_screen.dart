@@ -23,7 +23,9 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
             child: AppBar(
-              backgroundColor: colorScheme.surface.withAlpha(153), // semi-transparent
+              backgroundColor: colorScheme.surface.withAlpha(
+                153,
+              ), // semi-transparent
               elevation: 0,
               title: const Text(
                 'Chats',
@@ -54,27 +56,36 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
             child: ListView.builder(
               itemCount: 15,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: const CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(
-                          'https://cdn-icons-png.flaticon.com/512/219/219970.png'
+                return ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    padding: EdgeInsets.zero,
+                    shape: LinearBorder(),
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: const CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                            'https://cdn-icons-png.flaticon.com/512/219/219970.png',
+                          ),
                         ),
+                        title: Text('John Doe'),
+                        subtitle: Text('Hey, how are you?'),
+                        trailing: Text('10:30 AM'),
                       ),
-                      title: Text('John Doe'),
-                      subtitle: Text('Hey, how are you?'),
-                      trailing: Text('10:30 AM'),
-                    ),
-                    Divider(
-                      height: 0,
-                      thickness: 0.5,
-                      color: theme.dividerColor,
-                      indent: 20,
-                      // endIndent: 20,
-                    ),
-                  ],
+                      Divider(
+                        height: 0,
+                        thickness: 0.5,
+                        color: theme.dividerColor,
+                        indent: 20,
+                        // endIndent: 20,
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
