@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 final Color kPrimaryColor = Color(0xFF0070FC);
 final Color kDarkBgColor = Color(0xFF0A0A0A);
 
+//Light Theme Colors
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'PlusJakartaSans',
@@ -31,6 +32,7 @@ ThemeData lightTheme = ThemeData(
   ),
 );
 
+//Dark Theme Colors
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'PlusJakartaSans',
