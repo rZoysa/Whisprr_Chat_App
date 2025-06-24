@@ -7,10 +7,8 @@ class AuthViewmodel extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
   bool _isLoading = false;
-  String? _errorMessage;
 
   bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
 
   // Sign Up Method
   Future<AuthResult> signUp(
