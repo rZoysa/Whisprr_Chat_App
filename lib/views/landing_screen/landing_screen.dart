@@ -48,6 +48,7 @@ class _LandingScreenState extends State<LandingScreen>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          //Logo Image
           Expanded(
             child: Image.asset(
               'assets/images/brand_logo.png',
