@@ -82,6 +82,8 @@ class _LandingScreenState extends State<LandingScreen>
                       style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(height: 20),
+
+                    //Login Button
                     SizedBox(
                       width: deviceWidth * 0.85,
                       child: TextButton(
